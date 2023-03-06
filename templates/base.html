@@ -6,12 +6,31 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>LMS {% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'style/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style/main.css' %}">
     <script src="{% static 'scripts/bootstrap.bundle.min.js' %}" async defer></script>
 </head>
 <body>
-    {% block content %}
-    {% endblock %}
+
+{% include 'partials/nav.html' %}
+
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12 col-md-8">
+            {% block container %}
+
+            {% endblock %}
+        </div>
+        <aside class="col-12 col-md-4">
+            {% block aside %}
+
+            {% endblock %}
+        </aside>
+    </div>
+</div>
+
+
 </body>
 </html>
