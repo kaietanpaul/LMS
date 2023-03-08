@@ -14,7 +14,14 @@
                     <a href="{% url 'courses:course-update' pk=course.pk %}" class="btn btn-danger">EDIT</a>
                     <a href="{% url 'courses:course-delete' pk=course.pk %}" class="btn btn-danger">DELETE</a>
                 {% else %}
-                    <a href="" class="btn btn-success">VIEW</a>
+                    {% if user not in course.students.all %}
+                            <form action="{% url 'courses:student-enrollment' course_slug=course.slug %}" method="post">
+                            {% csrf_token %}
+                                <input type="submit" class="btn btn-warning" value="Take this course.">
+                            </form>
+                        {% else %}
+                            <a href="" class="btn btn-success">VIEW</a>
+                        {% endif %}
                 {% endif %}
             {% endif %} 
         </div>
