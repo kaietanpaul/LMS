@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, DeleteView, CreateView
+from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
 from . import models
 from .permissions import OwnerRequiredMixin
 
@@ -38,3 +38,14 @@ class CourseCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
+
+class CourseUpdateView(LoginRequiredMixin, OwnerRequiredMixin, UpdateView):
+    model = models.Course
+    fields = ('title', 'slug', 'subject', 'overview')
+    template_name = 'courses/course-update.html'
+    login_url = reverse_lazy('users:login')
+    context_object_name = 'course'
+
+    def get_success_url(self):
+        pk = self.kwargs.get('pk')
+        return reverse('courses:course-detail', kwargs={'pk': pk})

@@ -9,11 +9,9 @@
             <h1>{{ course.title }}</h1>
             <p><i>Created by: {{ course.owner.fullname }} at {{ course.created|date }}</i></p>
             <p class="lead my-3">{{ course.overview }}</p>
-        <a href="{% url 'courses:course-delete' pk=course.pk %}" class="btn btn-danger">DELETE</a>
             {% if user.is_authenticated %}
                 {% if course.owner.id == request.user.id %}
-                    <a href="" class="btn btn-success">VIEW</a>
-                    <a href="" class="btn btn-danger">EDIT</a>
+                    <a href="{% url 'courses:course-update' pk=course.pk %}" class="btn btn-danger">EDIT</a>
                     <a href="{% url 'courses:course-delete' pk=course.pk %}" class="btn btn-danger">DELETE</a>
                 {% else %}
                     <a href="" class="btn btn-success">VIEW</a>
