@@ -13,17 +13,22 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'home:home' %}">Home</a>
                 </li>
-            <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'courses:courses-list' %}">Courses</a>
                 </li>
 
                 {% if user.is_authenticated %}
+                    {% if user.is_instructor %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'courses:course-create' %}">Create</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">{{ user.fullname }}</a>
+                        <a class="nav-link active" aria-current="page" href="#">{{ user.fullname }}</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'users:logout' %}">Logout</a>
-                </li>
+                        <a class="nav-link active" aria-current="page" href="{% url 'users:logout' %}">Logout</a>
+                    </li>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page"
@@ -31,7 +36,7 @@
                     </li>
 
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'users:login' %}">Login</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'users:login' %}">Login</a>
                     </li>
                 {% endif %}
 

@@ -1,13 +1,22 @@
 {% extends 'base.html' %}
 
 {% block container %}
-    <h1>Courses List:</h1>
-    <ul>
-        {% for course in courses %}
-            <li class="mb-3">{{ course.title }}</li>
-
+    <div class="row">
+        <div class="col">
+        <div class="card-group">
+            {% for course in courses %}
+                <div class="card mb-3 me-3" style="max-width: 18rem;">
+                    <img src="{{ course.course_image.url }}" class="card-img-top" alt="{{ course.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ course.title }}</h5>
+                        <p class="card-text">{{ course.overview }}</p>
+                        <a href="{% url 'courses:course-detail' pk=course.pk %}" class="btn btn-primary">see course</a>
+                    </div>
+                </div>
             {% empty %}
-            <p>Something is no yes!</p>
-        {% endfor %}
-    </ul>
+                <h2>No courses found.</h2>
+            {% endfor %}
+        </div>
+        </div>
+    </div>
 {% endblock %}

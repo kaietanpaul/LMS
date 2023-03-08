@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block container %}
+
+    <form action="{% url 'courses:course-delete' pk=course.pk %}" method="post">
+        {% csrf_token %}
+        <h2 class="text-center mt-3">Are you sure you want to delete <b>{{ course }}</b></h2>
+        <button class="btn btn-success float-right btn-lg mb-3 mt-0" type="submit">Confirm</button>
+    </form>
+
+{% endblock %}
