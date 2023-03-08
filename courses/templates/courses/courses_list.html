@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block container %}
+    <h1>Courses List:</h1>
+    <ul>
+        {% for course in courses %}
+            <li class="mb-3">{{ course.title }}</li>
+
+            {% empty %}
+            <p>Something is no yes!</p>
+        {% endfor %}
+    </ul>
+{% endblock %}
