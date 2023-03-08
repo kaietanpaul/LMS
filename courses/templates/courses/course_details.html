@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block container %}
+    <div class="row">
+        <div class="col-md-3 col-md-offset-2">
+            <img src="{{ course.course_image.url }}" alt="{{ course.title }}" class="img-thumbnail">
+        </div>
+        <div class="col-md-9">
+            <h1>{{ course.title }}</h1>
+            <p><i>Created by: {{ course.owner.fullname }} at {{ course.created|date }}</i></p>
+            <p class="lead my-3">{{ course.overview }}</p>
+            {% if user.is_authenticated %}
+                {% if course.owner.id == request.user.id %}
+                    <a href="{% url 'courses:course-update' pk=course.pk %}" class="btn btn-danger">EDIT</a>
+                    <a href="{% url 'courses:course-delete' pk=course.pk %}" class="btn btn-danger">DELETE</a>
+                {% else %}
+                    {% if user not in course.students.all %}
+                            <form action="{% url 'courses:student-enrollment' course_slug=course.slug %}" method="post">
+                            {% csrf_token %}
+                                <input type="submit" class="btn btn-warning" value="Take this course.">
+                            </form>
+                        {% else %}
+                            <a href="" class="btn btn-success">VIEW</a>
+                        {% endif %}
+                {% endif %}
+            {% endif %} 
+        </div>
+    </div>
+{% endblock %}
