@@ -12,3 +12,10 @@ staticfiles/*
 main.py
 
 media/*
+
+htmlcov
+
+.coverage
+
+.pytest_cache
+

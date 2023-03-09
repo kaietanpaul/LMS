@@ -36,6 +36,7 @@ class CourseCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     success_url = reverse_lazy('courses:courses-list')
     login_url = reverse_lazy('users:login')
     permission_required = 'courses.add_course'
+    raise_exception = False
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
